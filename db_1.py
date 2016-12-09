@@ -1,6 +1,4 @@
 from sqlalchemy import create_engine, Column, Integer, String, Float, ForeignKey
-import os
-import reusables
 from sqlalchemy.orm import relationship
 import getpass
 import DateTime as Datetime
