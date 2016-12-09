@@ -1,0 +1,7 @@
+qrtools
+pyqrcode
+reusables
+pypng
+sqlalchemy
+
+
