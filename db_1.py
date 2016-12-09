@@ -3,6 +3,7 @@ import os
 import reusables
 from sqlalchemy.orm import relationship
 import getpass
+import DateTime as Datetime
 from sqlalchemy.ext.declarative import declarative_base
 
 eng_local = ('sqlite:///C\\Users\\{}\\Documents\\Database\\db1.db').format(getpass.getuser())
@@ -19,7 +20,7 @@ class User(Base):
     password = Column(String(50))
 
     def __repr__(self):
-        return "<User(name='%s', password='%s')>" %(self.name, self.password)
+        return "<User(name='%s', password='%s')>" % (self.name, self.password)
 
 class Soaps(Base):
     __tablename__ = 'soaps'
@@ -28,12 +29,12 @@ class Soaps(Base):
     name = Column(String(50))
     description = Column(String(500))
     season = Column(String(50))
-    date_created = Column()
+    date_created = Column(Datetime)
     wholesale = Column(Float)
     retail = Column(Float)
     batch_size = Column(Integer)
     recipe_link = Column(String(100))
-    children = relationship("Recipes", back_populates='soaps')
+    table_kids = relationship("Recipes", back_populates='soaps')
 
     def __repr__(self):
         return "<Soaps(name='%s', description='%s', season='%s', date_created='%s', wholesale='%s', retail='%s', " \
@@ -48,10 +49,10 @@ class Recipes(Base):
     amounts = Column()
     soap_id = Column(Integer, ForeignKey('soaps.id'))
     cost_per = Column(Integer, ForeignKey('amounts.cost_per'))
-    chidren = relationship("Ingredients", "Amounts")
+    table_kids = relationship("Ingredients", "Amounts")
 
     def __repr__(self):
-        return "<Recipes(soap_id='%s', ingredients='%s', amounts='%s')>" %s (self.soap_id, self.ingredients,
+        return "<Recipes(soap_id='%s', ingredients='%s', amounts='%s')>" % (self.soap_id, self.ingredients,
                                                                              self.amounts)
 
 
@@ -63,8 +64,7 @@ class Ingredients(Base):
     cost_per = Column(Float)
 
     def __repr__(self):
-        return "<Ingredients(id='%s', name='%s', cost_per='%s')>" % (self.id, self.name /
-                                                                    self.cost_per)
+        return "<Ingredients(id='%s', name='%s', cost_per='%s')>" % (self.id, self.name, self.cost_per)
 
 class Amounts(Base):
     __tablename__ = 'amounts'
@@ -75,7 +75,7 @@ class Amounts(Base):
     amount = Column(String(40))
 
     def __repr__(self):
-        return "<Amounts(id='%s', recipe_id='%s', ingredient_id='%s', amount='%s')>" % (self.id, self.recipe_id /
+        return "<Amounts(id='%s', recipe_id='%s', ingredient_id='%s', amount='%s')>" % (self.id, self.recipe_id,
                self.ingredient_id, self.amount)
 
 
