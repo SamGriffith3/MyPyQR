@@ -1,10 +1,12 @@
-from sqlalchemy import create_engine, Column, Integer, String, Float, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, Float, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 import getpass
-import DateTime as Datetime
 from sqlalchemy.ext.declarative import declarative_base
+import sys
+import reusables
 
-eng_local = ('sqlite:///C\\Users\\{}\\Documents\\Database\\db1.db').format(getpass.getuser())
+logger = reusables.get_logger(__name__, level=10, stream=sys.stdout)
+eng_local = 'sqlite:///home/{}/Documents/db1.db'.format(getpass.getuser())
 engine = create_engine(eng_local)
 
 Base = declarative_base()
@@ -27,7 +29,7 @@ class Soaps(Base):
     name = Column(String(50))
     description = Column(String(500))
     season = Column(String(50))
-    date_created = Column(Datetime)
+    date_created = Column(DateTime)
     wholesale = Column(Float)
     retail = Column(Float)
     batch_size = Column(Integer)
@@ -36,7 +38,7 @@ class Soaps(Base):
 
     def __repr__(self):
         return "<Soaps(name='%s', description='%s', season='%s', date_created='%s', wholesale='%s', retail='%s', " \
-               "batch_size='%s', recipe_link='%s'>" %(self.name, self.description, self.season, self.date_created,
+               "batch_size='%s', recipe_link='%s')>" %(self.name, self.description, self.season, self.date_created,
                                                       self.wholesale, self.retail, self.batch_size, self.recipe_link)
 
 class Recipes(Base):
@@ -46,7 +48,6 @@ class Recipes(Base):
     ingredients = Column(String(60))
     amounts = Column()
     soap_id = Column(Integer, ForeignKey('soaps.id'))
-    cost_per = Column(Integer, ForeignKey('amounts.cost_per'))
     table_kids = relationship("Ingredients", "Amounts")
 
     def __repr__(self):
