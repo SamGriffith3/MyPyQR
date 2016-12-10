@@ -12,6 +12,8 @@ logger = reusables.get_logger(__name__, level=10, stream=sys.stdout)
 eng_local = 'sqlite:///home/{}/Documents/db1.db'.format(getpass.getuser())
 engine = create_engine(eng_local)
 Base = declarative_base()
+Base.metadata.create_all(engine)
+
 
 
 #Tables
