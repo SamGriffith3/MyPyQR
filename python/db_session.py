@@ -9,7 +9,7 @@ session = Session()
 
 
 rec_1 = db_1.Soaps(name="Castille-Brine", description="A simple soap, with olive oil and sea salt", season="Autumn",
-                   date_created=_datetime.date, wholesale=3.50, retail=5.00, batch_size=24, recipe_link="https://cdgx.com")
+                   date_created=_datetime.datetime.now(), wholesale=3.50, retail=5.00, batch_size=24, recipe_link="https://cdgx.com")
 
 session.add(rec_1)
 
