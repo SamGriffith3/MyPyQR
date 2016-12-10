@@ -15,7 +15,6 @@ Base = declarative_base()
 Base.metadata.create_all(engine)
 
 
-
 #Tables
 class User(Base):
     __tablename__ = 'users'
@@ -51,14 +50,17 @@ class Recipes(Base):
     __tablename__ = 'recipes'
 
     id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
     ingredients = Column(String(60))
-    amounts = Column()
+    amount = Column(Float, ForeignKey('amounts.amount'))
+    amount_units = Column(String, ForeignKey('amounts.amount_units'))
     soap_id = Column(Integer, ForeignKey('soaps.id'))
-    table_kids = relationship("Ingredients", "Amounts")
+    table_kid = relationship("Ingredients", back_populates='Recipes')
+    table_kid2 = relationship("Amounts", back_populates='Recipes')
 
     def __repr__(self):
-        return "<Recipes(soap_id='%s', ingredients='%s', amounts='%s')>" % (self.soap_id, self.ingredients,
-                                                                             self.amounts)
+        return "<Recipes(user_id='%s', soap_id='%s', ingredients='%s', amounts='%s', amount_units='%s')>" % \
+               (self.user_id, self.soap_id, self.ingredients, self.amounts, self.amount_units)
 
 
 class Ingredients(Base):
@@ -67,6 +69,7 @@ class Ingredients(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(50))
     cost_per = Column(Float)
+    table_parent = relationship("Ingredients", back_populates='Recipes')
 
     def __repr__(self):
         return "<Ingredients(id='%s', name='%s', cost_per='%s')>" % (self.id, self.name, self.cost_per)
@@ -77,11 +80,13 @@ class Amounts(Base):
     id = Column(Integer, primary_key=True)
     recipe_id = Column(Integer, ForeignKey('recipes.id'))
     ingredient_id = Column(Integer, ForeignKey('ingredients.id'))
-    amount = Column(String(40))
+    amount = Column(Integer)
+    amount_units = Column(String(40))
+    table_parent = relationship("Amounts", back_populates='Recipes')
 
     def __repr__(self):
-        return "<Amounts(id='%s', recipe_id='%s', ingredient_id='%s', amount='%s')>" % (self.id, self.recipe_id,
-               self.ingredient_id, self.amount)
+        return "<Amounts(id='%s', recipe_id='%s', ingredient_id='%s', amount='%s', amount_units='%s')>" % \
+               (self.id, self.recipe_id, self.ingredient_id, self.amount, self.amount_units)
 
 
 print(User)
