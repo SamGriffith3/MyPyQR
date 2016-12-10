@@ -1,3 +1,4 @@
+#Imports
 from sqlalchemy import create_engine, Column, Integer, String, Float, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 import getpass
@@ -5,13 +6,15 @@ from sqlalchemy.ext.declarative import declarative_base
 import sys
 import reusables
 
+
+#Setup
 logger = reusables.get_logger(__name__, level=10, stream=sys.stdout)
 eng_local = 'sqlite:///home/{}/Documents/db1.db'.format(getpass.getuser())
 engine = create_engine(eng_local)
-
 Base = declarative_base()
 
 
+#Tables
 class User(Base):
     __tablename__ = 'users'
 
@@ -21,6 +24,7 @@ class User(Base):
 
     def __repr__(self):
         return "<User(name='%s', password='%s')>" % (self.name, self.password)
+
 
 class Soaps(Base):
     __tablename__ = 'soaps'
@@ -78,7 +82,8 @@ class Amounts(Base):
                self.ingredient_id, self.amount)
 
 
-
+print(User)
+print(Recipes)
 
 
 
