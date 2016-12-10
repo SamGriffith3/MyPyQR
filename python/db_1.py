@@ -9,10 +9,10 @@ import reusables
 
 #Setup
 logger = reusables.get_logger(__name__, level=10, stream=sys.stdout)
-eng_local = 'sqlite:///home/{}/Documents/db1.db'.format(getpass.getuser())
+eng_local = 'sqlite:///db1.db'          #home/{}/Documents/.format(getpass.getuser())
 engine = create_engine(eng_local)
 Base = declarative_base()
-Base.metadata.create_all(engine)
+
 
 
 #Tables
@@ -39,13 +39,13 @@ class Soaps(Base):
     retail = Column(Float)
     batch_size = Column(Integer)
     recipe_link = Column(String(100))
-    table_kids = relationship("Recipes", back_populates='soaps')
+    #table_kids = relationship("Recipes", back_populates='soaps')
 
     def __repr__(self):
         return "<Soaps(name='%s', description='%s', season='%s', date_created='%s', wholesale='%s', retail='%s', " \
                "batch_size='%s', recipe_link='%s')>" %(self.name, self.description, self.season, self.date_created,
                                                       self.wholesale, self.retail, self.batch_size, self.recipe_link)
-
+'''
 class Recipes(Base):
     __tablename__ = 'recipes'
 
@@ -55,6 +55,7 @@ class Recipes(Base):
     amount = Column(Float, ForeignKey('amounts.amount'))
     amount_units = Column(String, ForeignKey('amounts.amount_units'))
     soap_id = Column(Integer, ForeignKey('soaps.id'))
+    table_parent = relationship("Recipes", back_populates='Soaps')
     table_kid = relationship("Ingredients", back_populates='Recipes')
     table_kid2 = relationship("Amounts", back_populates='Recipes')
 
@@ -91,8 +92,9 @@ class Amounts(Base):
 
 print(User)
 print(Recipes)
+'''
 
-
+Base.metadata.create_all(engine)
 
 
 

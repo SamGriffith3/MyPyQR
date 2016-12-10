@@ -1,0 +1,14 @@
+Need to find a way to iterate qr_gen thru specific information on db_1
+
+Need to figure out how to conditionally add users and soaps in db_session
+
+Need to figure out how to get the rest of the tables to not throw errors in db_1
+
+Find a way to print out the tables neatly/open db in visually appealing way
+
+Get file path to universally be putting db in documents
+
+Import tkinter
+
+
+
