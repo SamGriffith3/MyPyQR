@@ -1,4 +1,4 @@
-import _datetime
+import datetime
 from sqlalchemy.orm import sessionmaker
 from python import db_1 as db_1
 
@@ -8,6 +8,8 @@ session = Session()
 
 print(db_1.User)
 print(db_1.Soaps)
+
+
 def add_user():
     u = input("Username: ")
     if u == db_1.User.name:
@@ -23,23 +25,32 @@ def add_soap():
     n = input("Soap Name: ")
     d = input("Description: ")
     s = input("Selling Season: ")
-    dt = _datetime.datetime.now()
-    ws = input("Wholesale Price: $")
-    if ws != float:
-        print("This has to be a floating number. Ex: 3.14, or 252.57")
-        ws = input("Wholesale Price: $")
-    rt = input("Retail Price: $")
-    if rt != float:
-        print("This has to be a floating number. Ex: 6.21, or 232324.59")
-        rt = input("Retail Price: $")
+    dt = datetime.datetime.now()
+    ws = False
+    while ws is False:
+        try:
+            ws = float(input("Wholesale Price: $"))
+        except ValueError:
+            print("Wholesale price must be a number")
+
+    def get_retail_price():
+        try:
+            return float(input("Retail Price: $"))
+        except ValueError:
+            print("This has to be a floating number. Ex: 6.21, or 232324.59")
+            return get_retail_price()
+
+    rt = get_retail_price()
+
+    # TODO FIX THIS ONE
     bs = input("Batch Size: ")
-    if bs != int:
+    if isinstance(bs, int):
         print("As an integer, if you don't mind")
         bs = input("Batch Size: ")
     lnk = input("Recipe Link")
     r = db_1.Soaps(name=n, description=d, season=s, date_created=dt, wholesale=ws, retail=rt, batch_size=bs,
                    recipe_link=lnk)
-    db_1.add(r)
+    session.add(r)
 
 
 

@@ -39,25 +39,24 @@ class Soaps(Base):
     retail = Column(Float)
     batch_size = Column(Integer)
     recipe_link = Column(String(100))
-    #table_kids = relationship("Recipes", back_populates='soaps')
+    #recipes = relationship("Recipes", back_populates='soaps')
 
     def __repr__(self):
         return "<Soaps(name='%s', description='%s', season='%s', date_created='%s', wholesale='%s', retail='%s', " \
                "batch_size='%s', recipe_link='%s')>" %(self.name, self.description, self.season, self.date_created,
                                                       self.wholesale, self.retail, self.batch_size, self.recipe_link)
-'''
+"""
 class Recipes(Base):
     __tablename__ = 'recipes'
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
-    ingredients = Column(String(60))
-    amount = Column(Float, ForeignKey('amounts.amount'))
-    amount_units = Column(String, ForeignKey('amounts.amount_units'))
+    #ingredients = Column(String(60))
+    amount = Column(Float, ForeignKey('amounts.id'))
     soap_id = Column(Integer, ForeignKey('soaps.id'))
-    table_parent = relationship("Recipes", back_populates='Soaps')
-    table_kid = relationship("Ingredients", back_populates='Recipes')
-    table_kid2 = relationship("Amounts", back_populates='Recipes')
+    soaps = relationship("Soaps", back_populates='recipes')
+    ingredients = relationship("Ingredients", back_populates='recipes')
+    amounts = relationship("Amounts", back_populates='recipes')
 
     def __repr__(self):
         return "<Recipes(user_id='%s', soap_id='%s', ingredients='%s', amounts='%s', amount_units='%s')>" % \
@@ -70,7 +69,7 @@ class Ingredients(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(50))
     cost_per = Column(Float)
-    table_parent = relationship("Ingredients", back_populates='Recipes')
+    table_parent = relationship(Recipes)
 
     def __repr__(self):
         return "<Ingredients(id='%s', name='%s', cost_per='%s')>" % (self.id, self.name, self.cost_per)
@@ -83,7 +82,7 @@ class Amounts(Base):
     ingredient_id = Column(Integer, ForeignKey('ingredients.id'))
     amount = Column(Integer)
     amount_units = Column(String(40))
-    table_parent = relationship("Amounts", back_populates='Recipes')
+    #table_parent = relationship(Recipes, back_populates='amounts')
 
     def __repr__(self):
         return "<Amounts(id='%s', recipe_id='%s', ingredient_id='%s', amount='%s', amount_units='%s')>" % \
@@ -92,8 +91,7 @@ class Amounts(Base):
 
 print(User)
 print(Recipes)
-'''
-
+"""
 Base.metadata.create_all(engine)
 
 
