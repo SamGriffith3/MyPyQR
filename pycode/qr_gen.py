@@ -9,9 +9,12 @@ session = Session()
 r = 0
 for i in range(len(session.query(db_1.Soaps.name).all())):
     n = session.query(db_1.Soaps.name).all()
+    p = session.query(db_1.Soaps.retail).all()
     print(str(n[r]))
     a = str(n[r]).strip()
-    name = pyqrcode.create(a)
+    b = str(p[r]).strip()
+    c = a + b
+    name = pyqrcode.create(c)
     name.png(a+'.png', scale=5, quiet_zone=4)
     name.show()
     r = r+1

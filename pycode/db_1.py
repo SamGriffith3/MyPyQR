@@ -38,12 +38,13 @@ class Soaps(Base):
     retail = Column(Float)
     batch_size = Column(Integer)
     recipe_link = Column(String(100))
+    stock = Column(Integer)
     #recipes = relationship("Recipes", back_populates='soaps')
 
     def __repr__(self):
         return "<Soaps(name='%s', description='%s', season='%s', date_created='%s', wholesale='%s', retail='%s', " \
-               "batch_size='%s', recipe_link='%s')>" %(self.name, self.description, self.season, self.date_created,
-                                                      self.wholesale, self.retail, self.batch_size, self.recipe_link)
+               "batch_size='%s', recipe_link='%s', stock='%s')>" %(self.name, self.description, self.season,
+                        self.date_created, self.wholesale, self.retail, self.batch_size, self.recipe_link, self.stock)
 """
 class Recipes(Base):
     __tablename__ = 'recipes'
