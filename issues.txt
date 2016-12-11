@@ -8,7 +8,7 @@ Find a way to print out the tables neatly/open db in visually appealing way
 
 Get file path to universally be putting db in documents
 
-Import tkinter
+
 
 
 

@@ -1,6 +1,6 @@
 import datetime
 from sqlalchemy.orm import sessionmaker
-from python import db_1 as db_1
+from pycode import db_1 as db_1
 
 
 Session = sessionmaker(bind=db_1.engine)
@@ -41,12 +41,12 @@ def add_soap():
             return get_retail_price()
 
     rt = get_retail_price()
-
-    # TODO FIX THIS ONE
-    bs = input("Batch Size: ")
-    if isinstance(bs, int):
-        print("As an integer, if you don't mind")
-        bs = input("Batch Size: ")
+    bs = False
+    while bs is False:
+        try:
+            bs = int(input("Batch Size: "))
+        except ValueError:
+            print("As an integer, if you don't mind")
     lnk = input("Recipe Link")
     r = db_1.Soaps(name=n, description=d, season=s, date_created=dt, wholesale=ws, retail=rt, batch_size=bs,
                    recipe_link=lnk)
