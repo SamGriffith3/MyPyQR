@@ -6,14 +6,16 @@ from sqlalchemy.orm import sessionmaker
 Session = sessionmaker(bind=db_1.engine)
 session = Session()
 
-
-n = session.query(db_1.Soaps.name).all()
-print(str(n[0]))
-'''
-name = pyqrcode.create(n[0])
-name.png(n+'.png', scale=5, quiet_zone=4)
-name.show()
-'''
+r = 0
+for i in range(len(session.query(db_1.Soaps.name).all())):
+    n = session.query(db_1.Soaps.name).all()
+    print(str(n[r]))
+    a = str(n[r]).strip()
+    name = pyqrcode.create(a)
+    name.png(a+'.png', scale=5, quiet_zone=4)
+    name.show()
+    r = r+1
+#TODO create file path for pictures
 
 
 

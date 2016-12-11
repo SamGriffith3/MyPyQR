@@ -14,7 +14,6 @@ engine = create_engine(eng_local)
 Base = declarative_base()
 
 
-
 #Tables
 class User(Base):
     __tablename__ = 'users'

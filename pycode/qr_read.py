@@ -1,7 +1,7 @@
 import zbarlight
 from PIL import Image
 
-file_path = '/home/sam/PycharmProjects/MyPyQR/This is the start of something beautiful.png'
+file_path = "a"
 with open(file_path, 'rb') as image_file:
     image = Image.open(image_file)
     image.load()
