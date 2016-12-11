@@ -3,7 +3,7 @@ pyqrcode
 reusables
 pypng
 sqlalchemy
-
+zbarlight
 
 
 

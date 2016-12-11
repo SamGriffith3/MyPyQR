@@ -1,5 +1,6 @@
 import pyqrcode
 import python.db_1 as db1
+import sqlalchemy
 
 
 name = db1.Soaps.name

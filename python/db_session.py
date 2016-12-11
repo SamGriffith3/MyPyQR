@@ -74,8 +74,3 @@ session.commit()
 
 
 print("ALL DONE")
-
-
-
-
-
