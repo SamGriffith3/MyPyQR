@@ -1,10 +1,4 @@
-qrtools
-pyqrcode
-reusables
-pypng
-sqlalchemy
 zbarlight
-
-
-
-
+PIL
+pyqrcode
+sqlalchemy
