@@ -5,6 +5,7 @@ Version 0.1.0          © 2016 Sam Griffith
 ##MyPyQR exists to allow pythoners to access to the world of QR codes
 
 ##Installation
+See Requirements.txt for more information
 
 ###PLEASE NOTE:
 ###Due to the unfortunate nature of QR codes, this code was not written purely within python and thus requires the installation of Zbar barcode reader. Please check out their installation documentation here: http://zbar.sourceforge.net/download.html
