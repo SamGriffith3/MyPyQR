@@ -60,20 +60,16 @@ def qr_gen_db(db_name, tablename, column):
 
     Session = sessionmaker(bind=db_name.engine)
     session = Session()
-    r = 0
-    for i in range(len(session.query(db_name.tablename.column).all())):
-        n = session.query(db_name.tablename.column).all()
-        p = session.query(db_name.tablename.column).all()
-        print(str(n[r]))
-        a = str(n[r]).strip()
-        name = pyqrcode.create(a)
-        name.png(a+'.png', scale=5, quiet_zone=4)
-        name.show()
-        r = r+1
+   
+    for row in session.query(db_name[tablename][column]).all():
+        row = row.encode("utf-8").strip()
+        qr_code = pyqrcode.create(row)
+        qr_code.png("{}.png".format(row), scale=5, quiet_zone=4)
+        qr_code.show()
+        
 
-
-def multiple_qr_gen_db(db_name, tablename, column, column2, column3, column4, column5, column6, column7, column8,
-                       column9, column10):
+#TODO get set of columns argument
+def multiple_qr_gen_db(db_name, tablename, columns):
     '''
 
     =============================================================================
@@ -98,34 +94,17 @@ def multiple_qr_gen_db(db_name, tablename, column, column2, column3, column4, co
 
     Session = sessionmaker(bind=db_name.engine)
     session = Session()
-    r = 0
-    for i in range(len(session.query(db_name.tablename.column).all())):
-        n = session.query(db_name.tablename.column).all()
-        n2 = session.query(db_name.tablename.column2).all()
-        n3 = session.query(db_name.tablename.column3).all()
-        n4 = session.query(db_name.tablename.column4).all()
-        n5 = session.query(db_name.tablename.column5).all()
-        n6 = session.query(db_name.tablename.column6).all()
-        n7 = session.query(db_name.tablename.column7).all()
-        n8 = session.query(db_name.tablename.column8).all()
-        n9 = session.query(db_name.tablename.column9).all()
-        n10 = session.query(db_name.tablename.column10).all()
-        print(str(n[r]))
-        a = str(n[r]).strip()
-        a2 = str(n2[r]).strip()
-        a3 = str(n3[r]).strip()
-        a4 = str(n4[r]).strip()
-        a5 = str(n5[r]).strip()
-        a6 = str(n6[r]).strip()
-        a7 = str(n7[r]).strip()
-        a8 = str(n8[r]).strip()
-        a9 = str(n9[r]).strip()
-        a10 = str(n10[r]).strip()
-        c = a + a2 + a3 + a4 + a5 + a6 + a7 +a8 + a9 +a10
-        name = pyqrcode.create(c)
-        name.png(a + '.png', scale=5, quiet_zone=4)
-        name.show()
-        r = r + 1
+    
+    for row in session.query(db_name[tablename]).all():
+        row_list = []
+        row = row.encode("utf-8").strip()
+        row_list.append(row)
+        
+        qr_code = pyqrcode.create(row)
+        qr_code.png("{}.png".format(row), scale=5, quiet_zone=4)
+        qr_code.show()
+        
+        
 
 
 '''
