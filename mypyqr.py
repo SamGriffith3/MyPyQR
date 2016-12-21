@@ -32,8 +32,8 @@ import zbarlight
 from PIL import Image
 
 
-def qr_read(input_file_path):
-    with open(input_file_path, 'rb') as image_file:
+def qr_read(filename):
+    with open(filename, 'rb') as image_file:
         image = Image.open(image_file)
         image.load()
         codes = zbarlight.scan_codes('qrcode', image)
@@ -54,16 +54,27 @@ The qr_read function allows a user to open and read a .png QR code
 
 import pyqrcode
 from sqlalchemy.orm import sessionmaker
+from PIL import Image
 
 
-def qr_gen(filename):
+
+
+
+
+def qr_gen(*args):
+
     '''
-    The qr_gen function allows a user to define a file path and output the filename as a QR code.
-    :return:
+    The qr_gen function allows a user to call multiple arguments and output a QR code as 'arg1.png'.
     '''
-    name = pyqrcode.create(filename)
-    name.png(filename + '.png', scale=5, quiet_zone=4)
-    name.show()
+
+    name = pyqrcode.create(str(args))
+    for arg in args:
+        name.png(str(arg) + '.png', scale=5, quiet_zone=4)
+        name.show()
+        return name
+
+
+
 
 def qr_gen_db(db_name, tablename, column):
 
