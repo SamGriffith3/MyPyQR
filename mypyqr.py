@@ -55,7 +55,7 @@ def qr_gen(*args):
     '''
     The qr_gen function allows a user to call multiple arguments and output a QR code as 'arg1.png'.
     '''
-    name = pyqrcode.create(str(args))
+    name = pyqrcode.create("~".join(args))
     for arg in args:
         name.png(str(arg) + '.png', scale=5, quiet_zone=4)
         name.show()
