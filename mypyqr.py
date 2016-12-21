@@ -1,4 +1,3 @@
-
 '''
 =================================================================================
 MyPyQR is licensed under the MIT License
@@ -30,6 +29,8 @@ SOFTWARE.
 
 import zbarlight
 from PIL import Image
+import pyqrcode
+from sqlalchemy.orm import sessionmaker
 
 
 def qr_read(filename):
@@ -49,31 +50,16 @@ OR CHECK OUT http://zbarlight.readthedocs.io FOR MORE INFORMATION.
 The qr_read function allows a user to open and read a .png QR code
 '''
 
-
-
-
-import pyqrcode
-from sqlalchemy.orm import sessionmaker
-from PIL import Image
-
-
-
-
-
-
 def qr_gen(*args):
 
     '''
     The qr_gen function allows a user to call multiple arguments and output a QR code as 'arg1.png'.
     '''
-
     name = pyqrcode.create(str(args))
     for arg in args:
         name.png(str(arg) + '.png', scale=5, quiet_zone=4)
         name.show()
         return name
-
-
 
 
 def qr_gen_db(db_name, tablename, column):
@@ -101,7 +87,6 @@ def qr_gen_db(db_name, tablename, column):
 
     Session = sessionmaker(bind=db_name.engine)
     session = Session()
-   
     for row in session.query(db_name[tablename][column]).all():
         row = row.encode("utf-8").strip()
         qr_code = pyqrcode.create(row)
@@ -144,8 +129,3 @@ def multiple_qr_gen_db(db_name, tablename, columns):
         qr_code = pyqrcode.create(row)
         qr_code.png("{}.png".format(row), scale=5, quiet_zone=4)
         qr_code.show()
-        
-        
-
-
-
